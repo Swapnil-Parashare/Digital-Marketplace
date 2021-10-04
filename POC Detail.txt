@@ -1,0 +1,21 @@
+Transaction Details for POC.
+
+Account 1 : "Owner"
+Account 2 : Created 4 NFTs
+Account 3 : Created 4 NFTs 
+Account 4 : Created 4 NFTs
+
+Account 2 : Additional 4 NFTS
+Account 5 : Purchased 4 NFTs
+
+Account 5 : Created 8 NFTs
+Account 2 : Purchased 8 NFTs.
+
+****************************  Fresh Deployment on Mumbai Testnet for POC : 25th September  ********************************
+
+nftMarket is deployed to : 0x7c803EB7463ce9f283f3d0626DB166F362D64D2f
+nft is deployed to : 0x2aB33F5943C743Aca4eEF6Ffe0f4F878108E9ea9
+
+Note : Testnet Deployment through public RPC provided on Polygon Site :- https://matic-testnet-archive-rpc.bwarelabs.com
+
+***************************************************************************************************************************** 
