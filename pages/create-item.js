@@ -18,7 +18,6 @@ export default function CreateItem() {
   const router = useRouter()
 
   async function onChange(e) {
-
     const file = e.target.files[0]
 
     try {
@@ -31,7 +30,7 @@ export default function CreateItem() {
       );
 
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;                                 // URL were our file is located.
-
+      console.log(`Image is Uploaded to IPFS : ${url}`);
       setFileUrl(url);                                                                         // Updating our component state.
 
     } catch (error) {
@@ -39,11 +38,11 @@ export default function CreateItem() {
     }  
   }
 
-
-
 async function createItem() {
-
-  const { name, description, price, category } = formInput;                                                    // Destructing Information from the 'formInput'.
+ 
+  console.log(`You have clicked for 1st time, uploading metadata of NFT to IPFS.....`);
+  
+  const { name, description, price, category } = formInput;                                          // Destructing Information from the 'formInput'.
 
   if (!name || !description || !price || !fileUrl || !category) return;
   
@@ -58,7 +57,8 @@ async function createItem() {
 
     const added = await client.add(data);                                                             // Uploading Meta-Data to IPFS                     
     const url = `https://ipfs.infura.io/ipfs/${added.path}`;                                          // This is the URL were our Data is present.
-
+    console.log(`Metadata of NFT is uploaded to IPFS : ${url}`);
+    console.log(`Wait for 1st Metamask Pop-up. Here you will pay gas fees for creating NFT.`)
     createSale(url);
   } catch (error) {
     console.log("Error uploading file: ", error);
@@ -77,11 +77,14 @@ async function createSale(url) {
   let contract = new ethers.Contract(nftaddress, NFT.abi, signer);                                    // Getting reference to NFT contract.
   let transaction = await contract.createToken(url);                                                  // Calling the function "createToken()" using contract.
   let tx = await transaction.wait();                                                                  // Wait till the transaction processed.
-  
   let event = tx.events[0];
   let value = event.args[2];
   let tokenId = value.toNumber();                                                                      // Getting reference to "tokenId".
-
+  
+  console.log(`On your 1st transaction conformation, NFT is created from given image`);
+  console.log(tx);
+  console.log(`Now wait for 2nd Metamask Pop-up!!! \nHere you will pay "Listing Price : 0.025 Matic"`)
+  
   const price = ethers.utils.parseUnits(formInput.price, "ether");                                     // Getting reference to "Price".
 
   /* then list the item for sale on the marketplace */
@@ -95,6 +98,8 @@ async function createSale(url) {
 
   await transaction.wait();
 
+  console.log(`On your 2nd trasaction conformation, Market Item is created on Kalachain `);
+  console.log(transaction);
   router.push("/");                                                                                     // Route our user to home page.
 
 }

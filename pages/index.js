@@ -23,12 +23,14 @@ function Home() {
   
   
     const data = await marketContract.fetchMarketItems();                                                   //Now we will start interacting with our Smart-Contracts.                                
-    // console.log(data);                                                                                      // Console logging data for verification.
     
     const items = await Promise.all(              
-      data.map(async (i) => {                                                                               // We are mapping over our 'data'                                            
+      data.map(async (i) => {         
+        // console.log(i);                                                                                     // We are mapping over our 'data'                                            
         const tokenUri = await tokenContract.tokenURI(i.tokenId);                                           // Fetching 'tokenURI' by using "NFT.sol" contract.
-        const meta = await axios.get(tokenUri);                                                             // That "tokenURI" is used to get meta data about token like :- Name , Description , Image , Vedio.
+        // console.log(tokenUri);                                                                              // This is the IPFS Uri were all the meta-data of the NFT is present. Console logging it for verification.
+        const meta = await axios.get(tokenUri);   
+        // console.log(meta.data);                                                          // That "tokenURI" is used to get meta data about token like :- Name , Description , Image , Vedio.
         if(true)
         {
           let price = ethers.utils.formatUnits(i.price.toString(), "ether");                                  // It is something IPFS stuff.
@@ -42,13 +44,12 @@ function Home() {
             description  : meta.data.description,
             category : meta.data.category
           }
-          console.log(tokenUri);                                                                              // This is the IPFS Uri were all the meta-data of the NFT is present. Console logging it for verification.
           return item;                                                                                        // Element of 'data' is processed to create this 'item'. Then this 'item' is added to 'items' Array.
         }
       })            
     );            
     setNfts(items);                                                                                         // Updating the state.
-    setLoadingState("loaded");            
+    setLoadingState("loaded");                      
   }           
 
   /*** Buying Unsold NFT's of our Marketplace */            
@@ -95,7 +96,9 @@ function Home() {
                     Category : {nft.category}                                                                 {/* Displaying Price of NFT */}
                   </p>
                   <button
-                    className="w-full bg-pink-500 text-white font-bold py-2 px-12 rounded"
+                    className="w-full bg-pink-500 text-white font-b
+                    .
+                    .old py-2 px-12 rounded"
                     onClick={() => buyNft(nft)}                                                                         /* Displaying "Buy" Button which will invoke our "buyNft()" function */
                   >
                     Buy
